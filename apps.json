@@ -1,0 +1,10 @@
+[
+  {
+    "name": "refweek",
+    "repo": "https://github.com/epfl-tools/refweek",
+    "subdomain": "refweek",
+    "_captain_definition_path": "./captain-definition",
+    "_internal_port": 3000,
+    "_force_https": true
+  }
+]
