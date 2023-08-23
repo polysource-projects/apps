@@ -2,13 +2,44 @@ In this example, we are going to use "refweek" as the name of the app we are goi
 
 ## Create an app
 
-**Endpoint**: `user/apps/appDefinitions/register`  
+**Endpoint**: `/user/apps/appDefinitions/register`  
 **Method**: `POST`  
 **Body**: `{"appName": "refweek", "hasPersistentData": false}`
 
+## Attach GitHub repo to an app / force SSL / change container port
+
+**Endpoint**: `/user/apps/appDefinitions/update`  
+**Method**: `POST`  
+**Body**: `{
+  "appName": "test",
+  "instanceCount": 1,
+  "captainDefinitionRelativeFilePath": "./captain-definition",
+  "notExposeAsWebApp": false,
+  "forceSsl": false,
+  "websocketSupport": false,
+  "containerHttpPort": 3000,
+  "volumes": [],
+  "ports": [],
+  "appPushWebhook": {
+    "repoInfo": {
+      "user": "androz2091@gmail.com",
+      "password": "______",
+      "branch": "main",
+      "sshKey": "",
+      "repo": "github.com/epfl-tools/refweek"
+    }
+  },
+  "description": "",
+  "envVars": []
+}`
+
+## Create GitHub Repository
+
+URL: `http://captain.sys.epfl.tools/api/v2/user/apps/webhooks/triggerbuild?namespace=captain&token={appData.appPushWebhook.pushWebhookToken}`
+
 ## Get apps statuses and configurations
 
-**Endpoint**: `user/apps/appDefinitions`  
+**Endpoint**: `/user/apps/appDefinitions`  
 **Method**: `GET`  
 **Example Response**:
 <details>
