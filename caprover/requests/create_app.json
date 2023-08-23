@@ -1,0 +1,9 @@
+{
+    "caproverName": "captain-epfl",
+    "path": "/user/apps/appDefinitions/register",
+    "method": "POST",
+    "data": {
+        "appName": "{{app_name}}",
+        "hasPersistentData": false
+    }
+}

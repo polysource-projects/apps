@@ -1,0 +1,36 @@
+name: Push config to CapRover
+
+on:
+  push:
+    paths:
+      - 'apps.json'
+
+jobs:
+  push_to_caprover:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20.5.0
+
+    - name: Install CapRover
+      run: npm install -g caprover
+
+    - name: Update login config file
+      run: |
+        cp caprover/requests/login.json caprover/requests/_login.json
+        sed -i 's/{{password}}/${{ secrets.CAPROVER_PASSWORD }}/g' caprover/requests/_login.json
+
+    - name: Login to CapRover
+      run: caprover login -c caprover/requests/_login.json
+
+    - name: Fetch existing CapRover apps
+      run: CAPROVER_CONFIG_FILE='caprover/requests/list_apps.json' caprover api -o caprover/apps.json
+
+    - name: Update or Create CapRover Apps
+      run: node caproverUpdate.js

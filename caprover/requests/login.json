@@ -1,0 +1,5 @@
+{
+    "caproverUrl": "captain.sys.epfl.tools",
+    "caproverPassword": "{{password}}",
+    "caproverName": "captain-epfl"
+}
