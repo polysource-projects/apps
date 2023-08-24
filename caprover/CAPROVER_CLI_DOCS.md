@@ -6,6 +6,12 @@ In this example, we are going to use "refweek" as the name of the app we are goi
 **Method**: `POST`  
 **Body**: `{"appName": "refweek", "hasPersistentData": false}`
 
+## Add custom domain
+
+**Endpoint**: `/user/apps/appDefinitions/customdomain`  
+**Method**: `POST`  
+**Body**: `{"appName": "refweek", "customDomain": "refweek.epfl.tools"}`
+
 ## Attach GitHub repo to an app / force SSL / change container port
 
 **Endpoint**: `/user/apps/appDefinitions/update`  

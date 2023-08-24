@@ -1,0 +1,27 @@
+{
+    "caproverName": "captain-epfl",
+    "path": "/user/apps/appDefinitions/update",
+    "method": "POST",
+    "data": {
+        "appName": "{{app_name}}",
+        "instanceCount": 1,
+        "captainDefinitionRelativeFilePath": "{{captain_definition_relative_file_path}}",
+        "notExposeAsWebApp": false,
+        "forceSsl": "{{force_ssl}}",
+        "websocketSupport": false,
+        "containerHttpPort": "{{container_http_port}}",
+        "volumes": [],
+        "ports": [],
+        "appPushWebhook": {
+            "repoInfo": {
+                "user": "{{github_user_email}}",
+                "password": "{{github_user_password}}",
+                "branch": "{{github_branch_name}}",
+                "sshKey": "",
+                "repo": "{{github_repo_url}}"
+            }
+        },
+        "description": "",
+        "envVars": []
+    }
+}
