@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { execSync } from 'child_process';
 import { join } from 'path';
 
@@ -33,6 +33,9 @@ const generateAppUpdateJson = (app) => {
 fetchApps();
 
 repoApps.forEach((app) => {
+
+    console.log(`Checking app: ${app.name}`);
+
     const caproverApp = caproverApps.find(ca => ca.appName === app.name);
 
     if (!caproverApp) {
@@ -85,25 +88,27 @@ repoApps.forEach((app) => {
         console.log(`Adding webhook to repo: ${app.repo}`);
 
     } else {
+
+        console.log(`App exists: ${app.name}`);
     
         // Compare properties and update if needed
         let needsUpdate = [];
 
-        if (caproverApp._internal_port !== app._internal_port) {
+        if (caproverApp.containerHttpPort !== app._internal_port) {
             needsUpdate.push('internal port');
         }
 
-        if (caproverApp._force_https !== app._force_https) {
+        if (caproverApp.forceSsl !== app._force_https) {
             needsUpdate.push('force https');
         }
 
-        if (caproverApp._captain_definition_relative_file_path !== app._captain_definition_relative_file_path) {
+        if (caproverApp.captainDefinitionRelativeFilePath !== app._captain_definition_relative_file_path) {
             needsUpdate.push('captain definition relative file path');
         }
 
         if (
-            (caproverApp._repo_branch !== app._repo_branch)
-            || (caproverApp.repo !== app.repo)
+            (caproverApp.appPushWebhook?.repoInfo?.branch !== app._repo_branch)
+            || (caproverApp.appPushWebhook?.repoInfo?.repo !== app.repo)
         ) {
             needsUpdate.push('repo details');
         }
