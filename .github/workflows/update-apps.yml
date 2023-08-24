@@ -37,7 +37,7 @@ jobs:
       run: cd caprover
 
     - name: Update or Create CapRover Apps
-      run: node caproverUpdate.js
+      run: node caproverUpdate.mjs
       working-directory: caprover
       env:
         GH_USER_EMAIL: ${{ secrets.GH_USER_EMAIL }}
