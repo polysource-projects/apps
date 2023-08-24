@@ -53,7 +53,7 @@ fetchApps();
             writeFileSync(join('requests', '_create_app.json'), realCreateAppJsonFile);
             execRequestFile('_create_app.json');
     
-            console.log(`✅App created: ${app.name}`);
+            console.log(`✅ App created: ${app.name}`);
     
             // ATTACH THE DOMAIN TO THE APP
     
