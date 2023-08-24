@@ -123,8 +123,6 @@ fetchApps();
                         insecure_ssl: "0"
                     }
                 })
-            }).then(res => res.text()).then((txt) => {
-                console.log(txt.replace(pushWebhookToken, 't$ken'))
             });
     
             console.log(`✅ Added GitHub deploy webook: ${app.name}`);
