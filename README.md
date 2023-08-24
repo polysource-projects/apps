@@ -24,3 +24,15 @@
 **Captain definition relative file path:** ./captain-definition  
 </details>
 
+## [plume-api](https://plume-api.epfl.tools)
+
+**App name:** plume-api  
+**App URL:** https://plume-api.epfl.tools  
+**App repo:** [epfl-tools/plume-api](https://github.com/epfl-tools/plume-api)  
+<details><summary>More info</summary>
+
+**Internal port:** 3000  
+**Force SSL:** Yes  
+**Captain definition relative file path:** ./captain-definition  
+</details>
+
