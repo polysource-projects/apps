@@ -7,6 +7,8 @@ const env = JSON.parse(readFileSync(join('..', 'env.json'), 'utf-8'));
 const repoApps = JSON.parse(readFileSync(join('..', 'apps.json'), 'utf-8'));
 let caproverApps = JSON.parse(readFileSync('apps.json', 'utf-8'));
 
+const execRequestFile = (fileName) => execSync(`CAPROVER_CONFIG_FILE='requests/${fileName}' caprover api -o ${`requests/_out_${fileName}`}`); 
+
 const fetchApps = () => {
     execSync(`CAPROVER_CONFIG_FILE='requests/list_apps.json' caprover api -o apps.json`);
     caproverApps = JSON.parse(readFileSync('apps.json', 'utf-8'))?.appDefinitions;
@@ -32,111 +34,151 @@ const generateAppUpdateJson = (app) => {
 
 fetchApps();
 
-repoApps.forEach((app) => {
+(async () => {
 
-    console.log(`Checking app: ${app.name}`);
+    for (const app of caproverApps) {
 
-    const caproverApp = caproverApps.find(ca => ca.appName === app.name);
-
-    if (!caproverApp) {
-        console.log(`Creating app: ${app.name}`);
-
-        // CREATE AN EMPTY APP ON CAPROVER
-
-        const templateCreateAppJsonFile = readFileSync(join('requests', 'create_app.json'), 'utf-8');
-        const realCreateAppJsonFile = templateCreateAppJsonFile.replace('{{app_name}}', app.name);
-        writeFileSync(join('requests', '_create_app.json'), realCreateAppJsonFile);
-
-        execSync(`caprover api -o ./requests/_create_app.json`);
-
-        // ATTACH THE DOMAIN TO THE APP
-
-        const templateAttachCustomDomain = readFileSync(join('requests', 'attach_custom_domain.json'), 'utf-8');
-        const realAttachCustomDomain = templateAttachCustomDomain
-            .replace('{{app_name}}', app.name)
-            .replace('{{custom_domain}}', `${app._subdomain}.${env.mainDomain}`);
-
-        writeFileSync(join('requests', '_attach_custom_domain.json'), realAttachCustomDomain);
-
-        execSync(`caprover api -o ./requests/_attach_custom_domain.json`);
-
-        // UPDATE APP'S CONFIGURATION
-
-        const updateAppJson = generateAppUpdateJson(app);
-        writeFileSync(join('requests', '_update_app.json'), updateAppJson);
-
-        execSync(`caprover api -o ./requests/_update_app.json`);
-
-        // RE-FETCH APPS
-        fetchApps();
-        const newApp = caproverApps.find(ca => ca.appName === app.name);
-        const pushWebhookToken = newApp.appPushWebhook.pushWebhookToken;
-
-        const templateTriggerBuild = readFileSync(join('requests', 'trigger_build.json'), 'utf-8');
-        const realTriggerBuild = templateTriggerBuild
-            .replace('{{namespace}}', env.captainTriggerBuildNamespace)
-            .replace('{{push_webhook_token}}', pushWebhookToken);
-
-        writeFileSync(join('requests', '_trigger_build.json'), realTriggerBuild);
-
-        execSync(`caprover api -o ./requests/_trigger_build.json`);
-
-        // TODO: ADD GITHUB WEBHOOK
-
-        const pushWebookUrl = `https://${env.captainSubdomain}.${env.captainDomain}/api/v2/user/apps/webhooks/triggerbuild?namespace=${env.captainTriggerBuildNamespace}&token=${pushWebhookToken}`;
-
-        console.log(`Adding webhook to repo: ${app.repo}`);
-
-    } else {
-
-        console.log(`App exists: ${app.name}`);
+        console.log('----------------------------------------');
+        console.log(`Checking app: ${app.name}`);
     
-        // Compare properties and update if needed
-        let needsUpdate = [];
-
-        if (caproverApp.containerHttpPort !== app._internal_port) {
-            needsUpdate.push('internal port');
-        }
-
-        if (caproverApp.forceSsl !== app._force_https) {
-            needsUpdate.push('force https');
-        }
-
-        if (caproverApp.captainDefinitionRelativeFilePath !== app._captain_definition_relative_file_path) {
-            needsUpdate.push('captain definition relative file path');
-        }
-
-        if (
-            (caproverApp.appPushWebhook?.repoInfo?.branch !== app._repo_branch)
-            || (caproverApp.appPushWebhook?.repoInfo?.repo !== app.repo)
-        ) {
-            needsUpdate.push('repo details');
-        }
-
-        if (needsUpdate.length > 0) {
-
-            console.log(`Updating app: ${app.name} (${needsUpdate.join(', ')})`);
-
+        const caproverApp = caproverApps.find(ca => ca.appName === app.name);
+    
+        if (!caproverApp) {
+            console.log(`Creating app: ${app.name}`);
+    
+            // CREATE AN EMPTY APP ON CAPROVER
+    
+            const templateCreateAppJsonFile = readFileSync(join('requests', 'create_app.json'), 'utf-8');
+            const realCreateAppJsonFile = templateCreateAppJsonFile.replace('{{app_name}}', app.name);
+            writeFileSync(join('requests', '_create_app.json'), realCreateAppJsonFile);
+            execRequestFile('_create_app.json');
+    
+            console.log(`✅App created: ${app.name}`);
+    
+            // ATTACH THE DOMAIN TO THE APP
+    
+            const templateAttachCustomDomain = readFileSync(join('requests', 'attach_custom_domain.json'), 'utf-8');
+            const realAttachCustomDomain = templateAttachCustomDomain
+                .replace('{{app_name}}', app.name)
+                .replace('{{custom_domain}}', `${app._subdomain}.${env.mainDomain}`);
+    
+            writeFileSync(join('requests', '_attach_custom_domain.json'), realAttachCustomDomain);
+            execRequestFile('_attach_custom_domain.json');
+    
+            console.log(`✅ Domain attached: ${app.name}`);
+    
+            // ENABLE SSL FOR THE DOMAIN
+    
+            const templateEnableSSLCustomDomain = readFileSync(join('requests', 'enable_ssl_custom_domain.json'), 'utf-8');
+            const realEnableSSLCustomDomain = templateEnableSSLCustomDomain
+                .replace('{{app_name}}', app.name)
+                .replace('{{custom_domain}}', `${app._subdomain}.${env.mainDomain}`);
+    
+            writeFileSync(join('requests', '_enable_ssl_custom_domain.json'), realEnableSSLCustomDomain);
+            execRequestFile('_enable_ssl_custom_domain.json');
+    
+            console.log(`✅ SSL enabled: ${app.name}`);
+    
             // UPDATE APP'S CONFIGURATION
+    
             const updateAppJson = generateAppUpdateJson(app);
             writeFileSync(join('requests', '_update_app.json'), updateAppJson);
-
-            execSync(`caprover api -o ./requests/_update_app.json`);
-
+            execRequestFile('_update_app.json');
+    
+            console.log(`✅ App updated: ${app.name}`);
+    
             // RE-FETCH APPS
             fetchApps();
             const newApp = caproverApps.find(ca => ca.appName === app.name);
             const pushWebhookToken = newApp.appPushWebhook.pushWebhookToken;
-
-            const templateTriggerBuild = readFileSync(join('..', 'requests', 'trigger_build.json'), 'utf-8');
+    
+            const templateTriggerBuild = readFileSync(join('requests', 'trigger_build.json'), 'utf-8');
             const realTriggerBuild = templateTriggerBuild
                 .replace('{{namespace}}', env.captainTriggerBuildNamespace)
                 .replace('{{push_webhook_token}}', pushWebhookToken);
-            
+    
             writeFileSync(join('requests', '_trigger_build.json'), realTriggerBuild);
-
-            execSync(`caprover api -o ./requests/_trigger_build.json`);
-
+            execRequestFile('_trigger_build.json');
+    
+            console.log(`✅ Build triggered: ${app.name}`);
+    
+            // TODO: ADD GITHUB WEBHOOK
+    
+            const pushWebookUrl = `https://${env.captainSubdomain}.${env.captainDomain}/api/v2/user/apps/webhooks/triggerbuild?namespace=${env.captainTriggerBuildNamespace}&token=${pushWebhookToken}`;
+    
+            await fetch(`https://api.github.com/repos/${env.githubOrganizationName}/hooks`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `token ${process.env.GH_USER_TOKEN}`,
+                    Accept: 'application/vnd.github+json',
+                    'X-Github-Api-Version': '2022-11-28'
+                },
+                body: JSON.stringify({
+                    name: "web",
+                    active: true,
+                    events: ["push"],
+                    config: {
+                        url: pushWebookUrl,
+                        content_type: "json",
+                        insecure_ssl: "0"
+                    }
+                })
+            });
+    
+            console.log(`✅ Added GitHub deploy webook: ${app.name}`);
+    
+        } else {
+    
+            console.log(`App exists: ${app.name}`);
+        
+            // Compare properties and update if needed
+            let needsUpdate = [];
+    
+            if (caproverApp.containerHttpPort !== app._internal_port) {
+                needsUpdate.push('internal port');
+            }
+    
+            if (caproverApp.forceSsl !== app._force_https) {
+                needsUpdate.push('force https');
+            }
+    
+            if (caproverApp.captainDefinitionRelativeFilePath !== app._captain_definition_relative_file_path) {
+                needsUpdate.push('captain definition relative file path');
+            }
+    
+            if (
+                (caproverApp.appPushWebhook?.repoInfo?.branch !== app._repo_branch)
+                || (caproverApp.appPushWebhook?.repoInfo?.repo !== app.repo)
+            ) {
+                needsUpdate.push('repo details');
+            }
+    
+            if (needsUpdate.length > 0) {
+    
+                console.log(`Updating app: ${app.name} (${needsUpdate.join(', ')})`);
+    
+                // UPDATE APP'S CONFIGURATION
+                const updateAppJson = generateAppUpdateJson(app);
+                writeFileSync(join('requests', '_update_app.json'), updateAppJson);
+                execRequestFile('_update_app.json');
+    
+                // RE-FETCH APPS
+                fetchApps();
+                const newApp = caproverApps.find(ca => ca.appName === app.name);
+                const pushWebhookToken = newApp.appPushWebhook.pushWebhookToken;
+    
+                const templateTriggerBuild = readFileSync(join('..', 'requests', 'trigger_build.json'), 'utf-8');
+                const realTriggerBuild = templateTriggerBuild
+                    .replace('{{namespace}}', env.captainTriggerBuildNamespace)
+                    .replace('{{push_webhook_token}}', pushWebhookToken);
+                
+                writeFileSync(join('requests', '_trigger_build.json'), realTriggerBuild);
+                execRequestFile('_trigger_build.json')
+    
+            }
         }
+    
+        console.log(`🆗 App is up to date: ${app.name}`);
     }
-});
+
+})();

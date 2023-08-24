@@ -1,0 +1,9 @@
+{
+    "caproverName": "captain-epfl",
+    "path": "/user/apps/appDefinitions/enablecustomdomainssl",
+    "method": "POST",
+    "data": {
+        "appName": "{{app_name}}",
+        "customDomain": "{{custom_domain}}"
+    }
+}

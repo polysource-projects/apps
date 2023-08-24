@@ -42,3 +42,4 @@ jobs:
       env:
         GH_USER_EMAIL: ${{ secrets.GH_USER_EMAIL }}
         GH_USER_PASSWORD: ${{ secrets.GH_USER_PASSWORD }}
+        GH_USER_TOKEN: ${{ secrets.GH_USER_TOKEN }}
