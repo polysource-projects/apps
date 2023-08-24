@@ -10,13 +10,21 @@ In this example, we are going to use "refweek" as the name of the app we are goi
 
 **Endpoint**: `/user/apps/appDefinitions/customdomain`  
 **Method**: `POST`  
-**Body**: `{"appName": "refweek", "customDomain": "refweek.epfl.tools"}`
+**Body**: 
+```json
+{
+  "appName": "refweek",
+  "customDomain": "refweek.epfl.tools"
+}
+```
 
 ## Attach GitHub repo to an app / force SSL / change container port
 
 **Endpoint**: `/user/apps/appDefinitions/update`  
 **Method**: `POST`  
-**Body**: `{
+**Body**: 
+```json
+{
   "appName": "test",
   "instanceCount": 1,
   "captainDefinitionRelativeFilePath": "./captain-definition",
@@ -37,7 +45,8 @@ In this example, we are going to use "refweek" as the name of the app we are goi
   },
   "description": "",
   "envVars": []
-}`
+}
+```
 
 ## Create GitHub Repository
 
