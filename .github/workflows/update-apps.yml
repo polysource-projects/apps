@@ -34,3 +34,6 @@ jobs:
 
     - name: Update or Create CapRover Apps
       run: node caproverUpdate.js
+      env:
+        GH_USER_EMAIL: ${{ secrets.GH_USER_EMAIL }}
+        GH_USER_PASSWORD: ${{ secrets.GH_USER_PASSWORD }}

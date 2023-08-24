@@ -21,8 +21,8 @@ const generateAppUpdateJson = (app) => {
         .replace('"{{force_ssl}}"', app._force_https || false)
         .replace('{{captain_definition_relative_file_path}}', app._captain_definition_relative_file_path || 'captain-definition')
         
-        .replace('{{github_user_email}}', process.env.GITHUB_USER_EMAIL)
-        .replace('{{github_user_password}}', process.env.GITHUB_USER_PASSWORD)
+        .replace('{{github_user_email}}', process.env.GH_USER_EMAIL)
+        .replace('{{github_user_password}}', process.env.GH_USER_PASSWORD)
         .replace('{{github_branch_name}}', app._repo_branch || 'master')
         .replace('{{github_repo_url}}', app.repo);
 
