@@ -1,9 +1,9 @@
 # Caprover Apps
 
-## [landing](landing.sys.epfl.tools)
+## [landing](http://landing.sys.epfl.tools)
 
 **App name:** landing  
-**App URL:** landing.sys.epfl.tools  
+**App URL:** http://landing.sys.epfl.tools  
 **App repo:** not defined.  
 <details><summary>More info</summary>
 
@@ -12,10 +12,10 @@
 **Captain definition relative file path:** ./captain-definition  
 </details>
 
-## [refweek](refweek.epfl.tools)
+## [refweek](https://refweek.epfl.tools)
 
 **App name:** refweek  
-**App URL:** refweek.epfl.tools  
+**App URL:** https://refweek.epfl.tools  
 **App repo:** github.com/epfl-tools/refweek  
 <details><summary>More info</summary>
 
