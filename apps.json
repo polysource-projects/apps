@@ -7,14 +7,5 @@
     "_captain_definition_relative_file_path": "./captain-definition",
     "_internal_port": 3000,
     "_force_https": true
-  },
-  {
-    "name": "test",
-    "repo": "refweek",
-    "_subdomain": "test",
-    "_repo_branch": "main",
-    "_captain_definition_relative_file_path": "./captain-definition",
-    "_internal_port": 3000,
-    "_force_https": true
   }
 ]
