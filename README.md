@@ -24,15 +24,3 @@
 **Captain definition relative file path:** ./captain-definition  
 </details>
 
-## [test](test.epfl.tools)
-
-**App name:** test  
-**App URL:** test.epfl.tools  
-**App repo:** github.com/epfl-tools/refweek  
-<details><summary>More info</summary>
-
-**Internal port:** 3000  
-**Force SSL:** Yes  
-**Captain definition relative file path:** ./captain-definition  
-</details>
-
