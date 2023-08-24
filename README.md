@@ -7,7 +7,7 @@
 **App repo:** not defined.  
 <details><summary>More info</summary>
 
-**Internal port:** 7575  
+**Internal port:** Undefined  
 **Force SSL:** No  
 **Captain definition relative file path:** ./captain-definition  
 </details>
@@ -16,10 +16,10 @@
 
 **App name:** refweek  
 **App URL:** https://refweek.epfl.tools  
-**App repo:** github.com/epfl-tools/refweek  
+**App repo:** https://github.com/epfl-tools/refweek  
 <details><summary>More info</summary>
 
-**Internal port:** 3000  
+**Internal port:** [epfl-tools/refweek](https://github.com/epfl-tools/refweek)  
 **Force SSL:** Yes  
 **Captain definition relative file path:** ./captain-definition  
 </details>
