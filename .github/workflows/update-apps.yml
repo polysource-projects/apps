@@ -2,6 +2,8 @@ name: Push config to CapRover
 
 on:
   push:
+    branches:
+      - main
     paths:
       - 'apps.json'
   workflow_dispatch:
