@@ -185,15 +185,19 @@ fetchApps();
 
     for (const app of caproverApps) {
 
-        const url = (app.forceSsl ? "https://" : "http://") +
+        const url = (app.forceSsl ? 'https://' : 'http://') +
           (app.customDomain?.[0]?.publicDomain || app.appName + "." + env.baseServiceURL);
+
+        const repoUrl = app?.appPushWebhook?.repoInfo?.repo ? 'https://' + app?.appPushWebhook.repoInfo.repo : null;
+        const repoName = repoUrl?.startsWith('https://github.com/') ? repoUrl.substring('https://github.com/'.length) : repoUrl;
+        const repoMd = repoUrl ? `[${repoName}](${repoUrl})` : 'Undefined';
 
         README += `## [${app.appName}](${url})\n\n`;
         README += `**App name:** ${app.appName}  \n`;
         README += `**App URL:** ${url}  \n`;
-        README += `**App repo:** ${app?.appPushWebhook?.repoInfo?.repo || 'not defined.'}  \n`;
+        README += `**App repo:** ${repoUrl || 'not defined.'}  \n`;
         README += '<details><summary>More info</summary>\n\n'
-        README += `**Internal port:** ${app.containerHttpPort || 'not defined.'}  \n`;
+        README += `**Internal port:** ${repoMd}  \n`;
         README += `**Force SSL:** ${app.forceSsl ? 'Yes' : 'No'}  \n`;
         README += `**Captain definition relative file path:** ${app.captainDefinitionRelativeFilePath || 'not defined.'}  \n`;
         README += '</details>\n\n';
