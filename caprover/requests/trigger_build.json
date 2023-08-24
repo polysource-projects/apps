@@ -1,5 +1,6 @@
 {
     "caproverName": "captain-epfl",
     "path": "/user/apps/webhooks/triggerbuild?namespace={{namespace}}&token={{push_webhook_token}}",
-    "method": "GET"
+    "method": "GET",
+    "data": {}
 }
