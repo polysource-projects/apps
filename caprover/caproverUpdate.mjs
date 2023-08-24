@@ -36,7 +36,7 @@ fetchApps();
 
 (async () => {
 
-    for (const app of caproverApps) {
+    for (const app of repoApps) {
 
         console.log('----------------------------------------');
         console.log(`Checking app: ${app.name}`);
