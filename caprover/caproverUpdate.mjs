@@ -185,17 +185,17 @@ fetchApps();
 
     for (const app of caproverApps) {
 
-        const url = app.customDomain[0]?.publicDomain;
+        const url = app.customDomain?.[0]?.publicDomain || app.appName + '.' + env.baseServiceURL;
 
         README += `## [${app.appName}](${url})\n\n`;
-        README += `**App name:** ${app.appName}\n\n`;
-        README += `**App URL:** ${url}\n\n`;
-        README += `**App repo:** ${app.appPushWebhook.repoInfo.repo}\n\n`;
+        README += `**App name:** ${app.appName}  \n`;
+        README += `**App URL:** ${url}  \n`;
+        README += `**App repo:** ${app?.appPushWebhook?.repoInfo?.repo || 'not defined.'}  \n`;
         README += '<details><summary>More info</summary>\n\n'
-        README += `**Internal port:** ${app.containerHttpPort}\n\n`;
-        README += `**Force SSL:** ${app.forceSsl}\n\n`;
-        README += `**Captain definition relative file path:** ${app.captainDefinitionRelativeFilePath}\n\n`;
-        README += '</details>';
+        README += `**Internal port:** ${app.containerHttpPort || 'not defined.'}  \n`;
+        README += `**Force SSL:** ${app.forceSsl ? 'Yes' : 'No'}  \n`;
+        README += `**Captain definition relative file path:** ${app.captainDefinitionRelativeFilePath || 'not defined.'}  \n`;
+        README += '</details>\n\n';
 
     }
 
