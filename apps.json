@@ -7,5 +7,14 @@
     "_captain_definition_relative_file_path": "./captain-definition",
     "_internal_port": 3000,
     "_force_https": true
+  },
+  {
+    "name": "plume-api",
+    "repo": "plume-api",
+    "_subdomain": "plume-api",
+    "_repo_branch": "master",
+    "_captain_definition_relative_file_path": "./captain-definition",
+    "_internal_port": 3000,
+    "_force_https": true
   }
 ]
