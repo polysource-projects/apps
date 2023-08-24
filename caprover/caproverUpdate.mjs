@@ -9,12 +9,12 @@ let caproverApps = JSON.parse(readFileSync('apps.json', 'utf-8'));
 
 const fetchApps = () => {
     execSync(`CAPROVER_CONFIG_FILE='requests/list_apps.json' caprover api -o apps.json`);
-    caproverApps = JSON.parse(readFileSync('apps.json', 'utf-8'));
+    caproverApps = JSON.parse(readFileSync('apps.json', 'utf-8'))?.appDefinitions;
 }
 
 const generateAppUpdateJson = (app) => {
 
-    const templateUpdateAppJsonFile = readFileSync(join('..', 'requests', 'update_app.json'), 'utf-8');
+    const templateUpdateAppJsonFile = readFileSync(join('requests', 'update_app.json'), 'utf-8');
     let realUpdateAppJsonFile = templateUpdateAppJsonFile
         .replace('{{app_name}}', app.name)
         .replace('"{{container_http_port}}"', app._internal_port || 3000)
@@ -40,7 +40,7 @@ repoApps.forEach((app) => {
 
         // CREATE AN EMPTY APP ON CAPROVER
 
-        const templateCreateAppJsonFile = readFileSync(join('..', 'requests', 'create_app.json'), 'utf-8');
+        const templateCreateAppJsonFile = readFileSync(join('requests', 'create_app.json'), 'utf-8');
         const realCreateAppJsonFile = templateCreateAppJsonFile.replace('{{app_name}}', app.name);
         writeFileSync(join('requests', '_create_app.json'), realCreateAppJsonFile);
 
@@ -48,7 +48,7 @@ repoApps.forEach((app) => {
 
         // ATTACH THE DOMAIN TO THE APP
 
-        const templateAttachCustomDomain = readFileSync(join('..', 'requests', 'attach_custom_domain.json'), 'utf-8');
+        const templateAttachCustomDomain = readFileSync(join('requests', 'attach_custom_domain.json'), 'utf-8');
         const realAttachCustomDomain = templateAttachCustomDomain
             .replace('{{app_name}}', app.name)
             .replace('{{custom_domain}}', `${app._subdomain}.${env.mainDomain}`);
@@ -69,7 +69,7 @@ repoApps.forEach((app) => {
         const newApp = caproverApps.find(ca => ca.appName === app.name);
         const pushWebhookToken = newApp.appPushWebhook.pushWebhookToken;
 
-        const templateTriggerBuild = readFileSync(join('..', 'requests', 'trigger_build.json'), 'utf-8');
+        const templateTriggerBuild = readFileSync(join('requests', 'trigger_build.json'), 'utf-8');
         const realTriggerBuild = templateTriggerBuild
             .replace('{{namespace}}', env.captainTriggerBuildNamespace)
             .replace('{{push_webhook_token}}', pushWebhookToken);
