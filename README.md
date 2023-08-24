@@ -4,10 +4,10 @@
 
 **App name:** landing  
 **App URL:** http://landing.sys.epfl.tools  
-**App repo:** not defined.  
+**App repo:** Undefined  
 <details><summary>More info</summary>
 
-**Internal port:** Undefined  
+**Internal port:** 7575  
 **Force SSL:** No  
 **Captain definition relative file path:** ./captain-definition  
 </details>
@@ -16,10 +16,10 @@
 
 **App name:** refweek  
 **App URL:** https://refweek.epfl.tools  
-**App repo:** https://github.com/epfl-tools/refweek  
+**App repo:** [epfl-tools/refweek](https://github.com/epfl-tools/refweek)  
 <details><summary>More info</summary>
 
-**Internal port:** [epfl-tools/refweek](https://github.com/epfl-tools/refweek)  
+**Internal port:** 3000  
 **Force SSL:** Yes  
 **Captain definition relative file path:** ./captain-definition  
 </details>
