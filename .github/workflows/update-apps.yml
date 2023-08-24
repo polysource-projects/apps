@@ -43,3 +43,9 @@ jobs:
         GH_USER_EMAIL: ${{ secrets.GH_USER_EMAIL }}
         GH_USER_PASSWORD: ${{ secrets.GH_USER_PASSWORD }}
         GH_USER_TOKEN: ${{ secrets.GH_USER_TOKEN }}
+
+    - name: Commit and Push
+      uses: EndBug/add-and-commit@v7
+      with:
+        message: 'Update README.md'
+        add: 'README.md'
