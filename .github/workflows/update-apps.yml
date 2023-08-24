@@ -18,7 +18,6 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: 20.5.0
-        cache: 'npm'
 
     - name: Install CapRover
       run: npm install -g caprover
