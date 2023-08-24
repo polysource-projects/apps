@@ -1,7 +1,7 @@
 [
   {
     "name": "refweek",
-    "repo": "github.com/epfl-tools/refweek",
+    "repo": "refweek",
     "_subdomain": "refweek",
     "_repo_branch": "main",
     "_captain_definition_relative_file_path": "./captain-definition",
@@ -10,7 +10,7 @@
   },
   {
     "name": "test",
-    "repo": "github.com/epfl-tools/refweek",
+    "repo": "refweek",
     "_subdomain": "test",
     "_repo_branch": "main",
     "_captain_definition_relative_file_path": "./captain-definition",

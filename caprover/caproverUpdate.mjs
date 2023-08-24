@@ -26,7 +26,7 @@ const generateAppUpdateJson = (app) => {
         .replace('{{github_user_email}}', process.env.GH_USER_EMAIL)
         .replace('{{github_user_password}}', process.env.GH_USER_PASSWORD)
         .replace('{{github_branch_name}}', app._repo_branch || 'master')
-        .replace('{{github_repo_url}}', app.repo);
+        .replace('{{github_repo_url}}', `github.com/${env.githubOrganizationName}/${app.repo}`);
 
     return realUpdateAppJsonFile;
 
@@ -106,7 +106,7 @@ fetchApps();
     
             const pushWebookUrl = `https://${env.captainSubdomain}.${env.captainDomain}/api/v2/user/apps/webhooks/triggerbuild?namespace=${env.captainTriggerBuildNamespace}&token=${pushWebhookToken}`;
     
-            await fetch(`https://api.github.com/repos/${env.githubOrganizationName}/hooks`, {
+            await fetch(`https://api.github.com/repos/${env.githubOrganizationName}/${app.repo}/hooks`, {
                 method: 'POST',
                 headers: {
                     Authorization: `token ${process.env.GH_USER_TOKEN}`,
@@ -148,7 +148,7 @@ fetchApps();
     
             if (
                 (caproverApp.appPushWebhook?.repoInfo?.branch !== app._repo_branch)
-                || (caproverApp.appPushWebhook?.repoInfo?.repo !== app.repo)
+                || (caproverApp.appPushWebhook?.repoInfo?.repo !== `github.com/${env.githubOrganizationName}/${app.repo}`)
             ) {
                 needsUpdate.push('repo details');
             }
