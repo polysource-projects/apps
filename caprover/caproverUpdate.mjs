@@ -2,9 +2,9 @@ import { readFileSync } from 'fs';
 import { execSync } from 'child_process';
 import { join } from 'path';
 
-const env = JSON.parse(readFileSync(join('..', 'env.json', 'utf-8')));
+const env = JSON.parse(readFileSync(join('..', 'env.json'), 'utf-8'));
 
-const repoApps = JSON.parse(readFileSync(join('..', 'apps.json', 'utf-8')));
+const repoApps = JSON.parse(readFileSync(join('..', 'apps.json'), 'utf-8'));
 let caproverApps = JSON.parse(readFileSync('apps.json', 'utf-8'));
 
 const fetchApps = () => {
