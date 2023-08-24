@@ -185,7 +185,8 @@ fetchApps();
 
     for (const app of caproverApps) {
 
-        const url = app.customDomain?.[0]?.publicDomain || app.appName + '.' + env.baseServiceURL;
+        const url = (app.forceSsl ? "https://" : "http://") +
+          (app.customDomain?.[0]?.publicDomain || app.appName + "." + env.baseServiceURL);
 
         README += `## [${app.appName}](${url})\n\n`;
         README += `**App name:** ${app.appName}  \n`;
