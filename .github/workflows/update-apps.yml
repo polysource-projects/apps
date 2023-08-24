@@ -33,8 +33,12 @@ jobs:
     - name: Fetch existing CapRover apps
       run: CAPROVER_CONFIG_FILE='caprover/requests/list_apps.json' caprover api -o caprover/apps.json
 
+    - name: Move to caprover directory
+      run: cd caprover
+
     - name: Update or Create CapRover Apps
       run: node caproverUpdate.js
+      working-directory: caprover
       env:
         GH_USER_EMAIL: ${{ secrets.GH_USER_EMAIL }}
         GH_USER_PASSWORD: ${{ secrets.GH_USER_PASSWORD }}
