@@ -104,7 +104,7 @@ fetchApps();
     
             // TODO: ADD GITHUB WEBHOOK
     
-            const pushWebookUrl = `https://${env.captainSubdomain}.${env.captainDomain}/api/v2/user/apps/webhooks/triggerbuild?namespace=${env.captainTriggerBuildNamespace}&token=${pushWebhookToken}`;
+            const pushWebookUrl = `https://${env.captainSubdomain}.${env.mainDomain}/api/v2/user/apps/webhooks/triggerbuild?namespace=${env.captainTriggerBuildNamespace}&token=${pushWebhookToken}`;
     
             await fetch(`https://api.github.com/repos/${env.githubOrganizationName}/${app.repo}/hooks`, {
                 method: 'POST',
@@ -123,6 +123,8 @@ fetchApps();
                         insecure_ssl: "0"
                     }
                 })
+            }).then(res => res.text()).then((txt) => {
+                console.log(txt.replace(pushWebhookToken, 't$ken'))
             });
     
             console.log(`✅ Added GitHub deploy webook: ${app.name}`);
