@@ -60,3 +60,15 @@
 **Captain definition relative file path:** ./captain-definition  
 </details>
 
+## [nuxt-boilerplate](https://nuxt-boilerplate.epfl.tools)
+
+**App name:** nuxt-boilerplate  
+**App URL:** https://nuxt-boilerplate.epfl.tools  
+**App repo:** [epfl-tools/nuxt-boilerplate](https://github.com/epfl-tools/nuxt-boilerplate)  
+<details><summary>More info</summary>
+
+**Internal port:** 3000  
+**Force SSL:** Yes  
+**Captain definition relative file path:** ./captain-definition  
+</details>
+
