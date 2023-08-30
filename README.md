@@ -36,3 +36,27 @@
 **Captain definition relative file path:** ./captain-definition  
 </details>
 
+## [epfl-stats-postgres](http://epfl-stats-postgres.sys.epfl.tools)
+
+**App name:** epfl-stats-postgres  
+**App URL:** http://epfl-stats-postgres.sys.epfl.tools  
+**App repo:** Undefined  
+<details><summary>More info</summary>
+
+**Internal port:** 80  
+**Force SSL:** No  
+**Captain definition relative file path:** ./captain-definition  
+</details>
+
+## [analytics](http://analytics.sys.epfl.tools)
+
+**App name:** analytics  
+**App URL:** http://analytics.sys.epfl.tools  
+**App repo:** Undefined  
+<details><summary>More info</summary>
+
+**Internal port:** 3000  
+**Force SSL:** No  
+**Captain definition relative file path:** ./captain-definition  
+</details>
+
