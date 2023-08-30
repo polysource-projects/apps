@@ -18,5 +18,15 @@
     "_internal_port": 3000,
     "_force_https": true,
     "_is_internal": false
+  },
+  {
+    "name": "nuxt-boilerplate",
+    "repo": "nuxt-boilerplate",
+    "_subdomain": "nuxt-boilerplate",
+    "_repo_branch": "main",
+    "_captain_definition_relative_file_path": "./captain-definition",
+    "_internal_port": 3000,
+    "_force_https": true,
+    "_is_internal": true
   }
 ]
