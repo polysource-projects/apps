@@ -54,25 +54,27 @@ fetchApps();
             execRequestFile('_create_app.json');
     
             console.log(`✅ App created: ${app.name}`);
-    
-            // ATTACH THE DOMAIN TO THE APP
-    
-            const templateAttachCustomDomain = readFileSync(join('requests', 'attach_custom_domain.json'), 'utf-8');
-            const realAttachCustomDomain = templateAttachCustomDomain
-                .replace('{{app_name}}', app.name)
-                .replace('{{custom_domain}}', `${app._subdomain}.${env.mainDomain}`);
-    
-            writeFileSync(join('requests', '_attach_custom_domain.json'), realAttachCustomDomain);
-            execRequestFile('_attach_custom_domain.json');
-    
-            console.log(`✅ Domain attached: ${app.name}`);
-    
+
+            if (app._subdomain) {
+                // ATTACH THE DOMAIN TO THE APP
+        
+                const templateAttachCustomDomain = readFileSync(join('requests', 'attach_custom_domain.json'), 'utf-8');
+                const realAttachCustomDomain = templateAttachCustomDomain
+                    .replace('{{app_name}}', app.name)
+                    .replace('{{custom_domain}}', `${app._subdomain}.${env.mainDomain}`);
+        
+                writeFileSync(join('requests', '_attach_custom_domain.json'), realAttachCustomDomain);
+                execRequestFile('_attach_custom_domain.json');
+        
+                console.log(`✅ Domain attached: ${app.name}`);
+            }
+
             // ENABLE SSL FOR THE DOMAIN
-    
+        
             const templateEnableSSLCustomDomain = readFileSync(join('requests', 'enable_ssl_custom_domain.json'), 'utf-8');
             const realEnableSSLCustomDomain = templateEnableSSLCustomDomain
                 .replace('{{app_name}}', app.name)
-                .replace('{{custom_domain}}', `${app._subdomain}.${env.mainDomain}`);
+                .replace('{{custom_domain}}', `${app._subdomain || app.name + '.sys'}.${env.mainDomain}`);
     
             writeFileSync(join('requests', '_enable_ssl_custom_domain.json'), realEnableSSLCustomDomain);
             execRequestFile('_enable_ssl_custom_domain.json');
