@@ -60,11 +60,47 @@
 **Captain definition relative file path:** ./captain-definition  
 </details>
 
-## [nuxt-boilerplate](https://nuxt-boilerplate.epfl.tools)
+## [nuxt-boilerplate](https://nuxt-boilerplate.sys.epfl.tools)
 
 **App name:** nuxt-boilerplate  
-**App URL:** https://nuxt-boilerplate.epfl.tools  
+**App URL:** https://nuxt-boilerplate.sys.epfl.tools  
 **App repo:** [epfl-tools/nuxt-boilerplate](https://github.com/epfl-tools/nuxt-boilerplate)  
+<details><summary>More info</summary>
+
+**Internal port:** 3000  
+**Force SSL:** Yes  
+**Captain definition relative file path:** ./captain-definition  
+</details>
+
+## [vodka-server](https://vodka-server.sys.epfl.tools)
+
+**App name:** vodka-server  
+**App URL:** https://vodka-server.sys.epfl.tools  
+**App repo:** [epfl-tools/vodka-server](https://github.com/epfl-tools/vodka-server)  
+<details><summary>More info</summary>
+
+**Internal port:** 3000  
+**Force SSL:** Yes  
+**Captain definition relative file path:** ./captain-definition  
+</details>
+
+## [vodka-server-redis](http://vodka-server-redis.sys.epfl.tools)
+
+**App name:** vodka-server-redis  
+**App URL:** http://vodka-server-redis.sys.epfl.tools  
+**App repo:** Undefined  
+<details><summary>More info</summary>
+
+**Internal port:** 80  
+**Force SSL:** No  
+**Captain definition relative file path:** ./captain-definition  
+</details>
+
+## [vodka-auth](https://vodka.epfl.tools)
+
+**App name:** vodka-auth  
+**App URL:** https://vodka.epfl.tools  
+**App repo:** [epfl-tools/vodka-auth](https://github.com/epfl-tools/vodka-auth)  
 <details><summary>More info</summary>
 
 **Internal port:** 3000  
