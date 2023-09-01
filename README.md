@@ -79,7 +79,7 @@
 **App repo:** [epfl-tools/vodka-server](https://github.com/epfl-tools/vodka-server)  
 <details><summary>More info</summary>
 
-**Internal port:** 3000  
+**Internal port:** 8000  
 **Force SSL:** Yes  
 **Captain definition relative file path:** ./captain-definition  
 </details>
