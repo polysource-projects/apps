@@ -38,5 +38,15 @@
     "_internal_port": 3000,
     "_force_https": true,
     "_is_internal": true
+  },
+  {
+    "name": "lesswalkmorework",
+    "repo": "lesswalkmorework",
+    "_subdomain": "lm",
+    "_repo_branch": "main",
+    "_captain_definition_relative_file_path": "./captain-definition",
+    "_internal_port": 3000,
+    "_force_https": true,
+    "_is_internal": true
   }
 ]
